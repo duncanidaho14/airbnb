@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>R'BNB {% block title %} R'BNB {% endblock %} </title>
+        
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> 
+                      
+         {{ encore_entry_link_tags('app') }}
+        {% block stylesheets %}
+        {% endblock %}
+    </head>
+    <body>
+
+        {% include "admin/layout/header.html.twig" %}
+
+        {% block body %}{% endblock %}
+
+        {% include "admin/layout/footer.html.twig" %}
+
+        {{ encore_entry_script_tags('app') }}
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

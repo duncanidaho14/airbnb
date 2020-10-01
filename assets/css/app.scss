@@ -1,9 +1,7 @@
-@import '~bootstrap';
-@import './carousel.scss';
 
-body {
-    background-color: lightgrey;
-}
+@import 'bootswatch.min.css';
+
+
 
 .bd-placeholder-img {
     font-size: 1.125rem;
@@ -18,4 +16,81 @@ body {
    .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
+}
+
+//////////////////////////////////////////
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+div.container, div.container-fluid {
+    margin-top: 20px;
+}
+
+div.new-title {
+    padding: 2em;
+    background-size: cover;
+    background-position: center center;
+}
+
+div.new-title h1, div.new-title p {
+    color: white;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+div.ad-title .btn {
+    margin-top: 2em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
+div.carousel-caption {
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+
+}
+
+.avatar {
+    max-width: 128px;
+    max-height: 128px;
+    border-radius: 50%;
+}
+
+.avatar-medium {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.avatar-mini {
+    max-width: 40px;
+    max-height: 30px;
+}
+
+.avatar-micro {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    color: firebrick !important;
+}
+
+span.rating i {
+    color: goldenrod;
+}
+
+.alert a {
+    text-decoration: none;
+}
+
+.alert .btn {
+    color: white;
+}
+
+div.dropdown-menu.dopdown-menu-left {
+    margin-right: 70px;
 }
