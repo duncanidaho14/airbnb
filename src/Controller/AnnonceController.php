@@ -88,12 +88,12 @@ class AnnonceController extends AbstractController
                 "Les modifications de l'annonce <strong>{$ad->getTitle()}</strong> ont bien été enregistrées ! "
             );
 
-            return $this->redirectToRoute('ads_show', [
+            return $this->redirectToRoute('annonces_show', [
                 'slug' => $ad->getSlug()
             ]);
         }
 
-        return $this->render('ad/edit.html.twig', [
+        return $this->render('annonce/edit.html.twig', [
             'form' => $form->createView(),
             'ad' => $ad
         ]);
@@ -105,7 +105,7 @@ class AnnonceController extends AbstractController
      * 
      * @return Response
      */
-    public function show(AnnonceRepository $repo, $slug)
+    public function show(AnnonceRepository $repo, $slug):Response
     {
         // Je récupére l'annonce qui correspond au slug
         $ad = $repo->findOneBySlug($slug);

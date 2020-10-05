@@ -60,7 +60,8 @@ class AppFixtures extends Fixture
                 ->setIntroduction($faker->sentence())
                 ->setDescription('<p>'.join('<p></p>', $faker->paragraphs(3)). '</p>')
                 ->setHash($hash)
-                ->setPicture($picture);
+                ->setPicture($picture)
+            ;
             
             $manager->persist($user);
             $users[] = $user;
@@ -85,6 +86,8 @@ class AppFixtures extends Fixture
                 ->setPrice(mt_rand(40, 200))
                 ->setRooms(mt_rand(1, 5))
                 ->setAuthor($user)
+                ->setStreet($faker->streetAddress)
+                ->setZip($faker->postcode)
                 ;
             for ($j=0; $j <= mt_rand(2, 5) ; $j++) { 
                 $image = new Image();

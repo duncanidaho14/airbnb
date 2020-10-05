@@ -1,10 +1,12 @@
 {% extends "base.html.twig" %}
-
+    
+    
 {% block title %}
     {{ad.title}}
 {% endblock %}
 
 {% block body %}
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
 
 <div class="new-title" style="background-image: url({{ad.coverImage}})">
     <div class="container">
@@ -15,8 +17,8 @@
         </p>
         <a href="{{path('booking_create', {'slug': ad.slug})}}" class="btn btn-primary">Réserver !</a>
         {% if app.user and app.user == ad.author %}
-            <a href="{{path('ads_edit', {'slug': ad.slug})}}" class="btn btn-secondary">Modifier l'annonce</a>
-            <a href="{{path('ads_delete', {'slug': ad.slug})}}" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{ad.title}} ?`)">Supprimer l'annonce</a>
+            <a href="{{path('annonces_edit', {'slug': ad.slug})}}" class="btn btn-secondary">Modifier l'annonce</a>
+            <a href="{{path('annonces_delete', {'slug': ad.slug})}}" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{ad.title}} ?`)">Supprimer l'annonce</a>
         {% endif %}
     </div>
 </div>
@@ -53,6 +55,11 @@
             <span class="sr-only">Next</span>
         </a>
         </div>
+        <div>
+            <div>{{ad.street}}</div>
+            <div>{{ad.zip}}</div>
+        </div>
+        <div id="map"></div>
         <hr>
         {% if ad.comments|length > 0 %}
             <h2 class="mb-3">Commentaires de nos voyageurs :</h2>
@@ -106,4 +113,30 @@
     </div>
 
 </div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+<script>
+    // On initialise la latitude et la longitude de Paris (centre de la carte)
+            var lat = 48.852969;
+            var lon = 2.349903;
+            var macarte = null;
+            // Fonction d'initialisation de la carte
+            function initMap() {
+                // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+                macarte = L.map('map').setView([lat, lon], 11);
+                // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                    // Il est toujours bien de laisser le lien vers la source des données
+                    attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                    minZoom: 1,
+                    maxZoom: 20
+                }).addTo(macarte);
+            }
+            window.onload = function(){
+                // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+                initMap(); 
+            };
+            
+        </script>
 {% endblock %}
