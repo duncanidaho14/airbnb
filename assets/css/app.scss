@@ -94,3 +94,8 @@ span.rating i {
 div.dropdown-menu.dopdown-menu-left {
     margin-right: 70px;
 }
+
+#map {
+    /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+    height: 400px;
+}

@@ -91,6 +91,16 @@ class Annonce
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $street;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $zip;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -364,6 +374,30 @@ class Annonce
                 $comment->setAnnonce(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(string $street): self
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    public function setZip(string $zip): self
+    {
+        $this->zip = $zip;
 
         return $this;
     }
