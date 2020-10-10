@@ -101,6 +101,16 @@ class Annonce
      */
     private $zip;
 
+    /**
+     * @ORM\Column(type="decimal", scale=6, precision=8)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="decimal", scale=6, precision=8)
+     */
+    private $lon;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -398,6 +408,30 @@ class Annonce
     public function setZip(string $zip): self
     {
         $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLon(): ?float
+    {
+        return $this->lon;
+    }
+
+    public function setLon(float $lon): self
+    {
+        $this->lon = $lon;
 
         return $this;
     }

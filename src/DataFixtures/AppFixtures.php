@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
                     ->setLastName('zoldik')
                     ->setEmail('kirua@gmail.com')
                     ->setHash($this->encoder->encodePassword($adminUser, 'password'))
-                    ->setPicture('http://placehold.it/1000x300')
+                    ->setPicture('https://www.google.com/search?q=kirua+image&tbm=isch&source=iu&ictx=1&fir=Yz_rLakGypnqjM%252Ce8-bc8x2nRGw2M%252C_&vet=1&usg=AI4_-kThIWgK0TcpMBjJoU-bkPLb6ppjtA&sa=X&ved=2ahUKEwj83d7p96nsAhUQ-hQKHdH-D6YQ9QF6BAgKEEQ&biw=874&bih=798#imgrc=Yz_rLakGypnqjM')
                     ->setIntroduction($faker->sentence())
                     ->setDescription('<p>'.join('</p><p>', $faker->paragraphs(3)) .'</p>')
                     ->addUserRole($adminRole);
@@ -88,6 +88,8 @@ class AppFixtures extends Fixture
                 ->setAuthor($user)
                 ->setStreet($faker->streetAddress)
                 ->setZip($faker->postcode)
+                ->setLat($faker->latitude)
+                ->setLon($faker->longitude)
                 ;
             for ($j=0; $j <= mt_rand(2, 5) ; $j++) { 
                 $image = new Image();
