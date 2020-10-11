@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.login-container {
+    background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}
+
+.card{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #FFC312;
+}
+
+.divlogin {
+    background-image: linear-gradient($pink, $blue, $green);
+    border-radius: 0.95rem;
+    box-shadow: border-box;
+    margin-top: 50px;
+    margin-bottom: 400px;
+    h1 {
+        color: #EBF10E;
+    }
+
+    a {
+        color: #EBF10E;
+    }
+
+    input {
+        font-weight: bold;
+        //padding: 0 10px 0 10px;
+        margin: 0, -20px 0 20px;
+    }
+
+}
+
+div.form-group {
+
+}
+
+label.label-form-login {
+    width: 110px;
+    height: 20px;
+    color: #EBF10E;
+    text-align: left;
+    justify-content: center;
+   
+    input {
+        margin: auto;
+    }
+
+}
