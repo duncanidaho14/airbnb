@@ -54,6 +54,7 @@ class BookingController extends AbstractController
 
     /**
      * @Route("/booking/{id}", name="booking_show")
+     * @IsGranted("ROLE_USER")
      * 
      * @param Booking $booking
      * @param Request $request
