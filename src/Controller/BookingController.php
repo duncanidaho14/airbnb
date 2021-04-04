@@ -17,6 +17,8 @@ class BookingController extends AbstractController
 {
     /**
      * @Route("/annonces/{slug}/book", name="booking_create")
+     * @IsGranted("ROLE_USER")
+     * 
      */
     public function book(Annonce $annonce, Request $request, EntityManagerInterface $manager)
     {
@@ -53,6 +55,7 @@ class BookingController extends AbstractController
 
     /**
      * @Route("/booking/{id}", name="booking_show")
+     * @IsGranted("ROLE_USER")
      * 
      * @param Booking $booking
      * @param Request $request

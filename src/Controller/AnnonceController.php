@@ -32,7 +32,7 @@ class AnnonceController extends AbstractController
      * Permet de créer une annonce
      * 
      * @Route("/annonces/new", name="annonces_create")
-     *
+     * @IsGranted("ROLE_USER")
      * @return void
      */
     public function create(Request $request, EntityManagerInterface $manager)
