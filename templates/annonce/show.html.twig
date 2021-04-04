@@ -124,23 +124,70 @@
     let lat = "{{ad.lat}}";
     let lon = "{{ad.lon}}";
     let macarte = null;
-    let test = "{{ad.street}}";
+    let street = "{{ad.street}}";
+    let zip = "{{ad.zip}}"
     // Fonction d'initialisation de la carte
     function initzMap() {
-        // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
-        macarte = L.map('map').setView([lat, lon], 11);
-        // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+        var macarte = L.map('map').setView([lat, lon], 11);
         L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-            // Il est toujours bien de laisser le lien vers la source des données
             attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
             minZoom: 1,
             maxZoom: 20
         }).addTo(macarte);
+        L.Control.geocoder().addTo(macarte);
+
+/**var macarte = L.map('map').setView([0, 0], 2);
+L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(macarte);
+L.Control.geocoder().addTo(macarte);
+L.Routing.control({
+    // waypoints: [
+    //     L.latLng(57.74, 11.94),
+    //     L.latLng(57.6792, 11.949)
+    // ],
+    routeWhileDragging: true,
+    geocoder: L.Control.Geocoder.nominatim(),
+    language: 'fr'
+}).addTo(macarte);
+        var geocoder = L.Control.geocoder({
+            defaultMarkGeocode: false
+        })
+        .on('markgeocode', function(e) {
+            var bbox = e.geocode.bbox;
+            var poly = L.polygon([
+            bbox.getSouthEast(),
+            bbox.getNorthEast(),
+            bbox.getNorthWest(),
+            bbox.getSouthWest()
+            ]).addTo(macarte);
+            macarte.fitBounds(poly.getBounds());
+        })
+        .addTo(macarte);
+//L.Control.Geocoder.nominatim(reverseQueryParams);*/
+
+var cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
+    cloudmade = new L.TileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {attribution: cloudmadeAttribution});
+
+var map = new L.Map('map').addLayer(cloudmade).setView(new L.LatLng(48.5, 2.5), 15);
+
+var osmGeocoder = new L.Control.OSMGeocoder();
+
+map.addControl(osmGeocoder);
+
 
         L.popup()
         .setLatLng([{{ad.lat}}, {{ad.lon}}])
         .setContent("{{ad.street}}")
         .openOn(macarte);
+
+        // crée un groupe de marqueur
+        const markers = [];
+        street.forEach(item => {
+            const m = L.marker(item, {
+                icon: markerIcon
+            }).bindPopup(`<h2>${item.name}}</h2>`);
+        })
     }
     window.onload = function(){
         // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
