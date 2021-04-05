@@ -17,5 +17,4 @@ import 'bootstrap';
 import './annonce.js';
 
 
-console.log('salut');
 export default $;

@@ -42,6 +42,13 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($annonce->getImages() as $image) {
+                $image->setAnnonce($annonce);
+                $manager->persist($image);
+            }
+            
+            $annonce->setAuthor($this->getUser());
+
             $manager->persist($annonce);
             $manager->flush();
             
@@ -62,8 +69,8 @@ class AnnonceController extends AbstractController
     /**
      * Permet d'afficher le formulaire d'édition
      * 
-     * @Route("/annonces/{slug}/edit", name="annonce_edit")
-     * @Security("is_granted('ROLE_USER') and user === annonce.getAuthor()", message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modfier")
+     * @Route("/annonces/{slug}/edit", name="annonces_edit")
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      * @return Response
      */
@@ -77,7 +84,7 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Gérer l'ajout de multiples images avec collectiontype
             foreach ($ad->getImages() as $image) {
-                $image->setAd($ad);
+                $image->setAnnonce($ad);
                 $manager->persist($image);
             }
             $manager->persist($ad);
@@ -95,7 +102,7 @@ class AnnonceController extends AbstractController
 
         return $this->render('annonce/edit.html.twig', [
             'form' => $form->createView(),
-            'ad' => $ad
+            'annonce' => $ad
         ]);
     }
 
@@ -116,5 +123,28 @@ class AnnonceController extends AbstractController
 
     }
 
-    
+    /**
+     * Permet de supprimer une annonce
+     * 
+     * @Route("/ads/{slug}/delete", name="annonces_delete")
+     * @Security("is_granted('ROLE_USER') and user == ad.getAuthor()", message="Vous n'avez pas le droit d'accéder à cette ressource")
+     *
+     * @param Annonce $ad
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function delete(Annonce $ad, EntityManagerInterface $manager) {
+        $manager->remove($ad);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "L'annonce <strong>{$ad->getTitle()}</strong> a bien été supprimée !"
+        );
+
+        return $this->redirectToRoute("annonces_index");
+    }
+
 }
+    
+
